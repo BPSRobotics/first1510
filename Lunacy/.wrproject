@@ -242,12 +242,12 @@
     <buildtargets>
         <buildtarget buildtool="Linker" name="DefaultRobot" passed="false" targetname="DefaultRobot">
             <contents>
-                <buildtargetreference name="/Lunacy/DefaultRobot_partialImage"/>
+                <buildtargetreference name="/1510_Lunacy_2009/DefaultRobot_partialImage"/>
             </contents>
         </buildtarget>
         <buildtarget buildtool="Partial Image Linker" name="DefaultRobot_partialImage" passed="true" targetname="DefaultRobot_partialImage">
             <contents>
-                <file name="/Lunacy/DefaultRobot.cpp"/>
+                <file name="/1510_Lunacy_2009/DefaultRobot.cpp"/>
             </contents>
         </buildtarget>
     </buildtargets>
