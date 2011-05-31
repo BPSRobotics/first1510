@@ -1,0 +1,7 @@
+ToDo programming log for Raphael:
+
+Get inputs and victors and spikes
+    Program these
+
+write kicker code
+write ballgrabber code
