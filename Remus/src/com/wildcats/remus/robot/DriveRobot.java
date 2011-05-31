@@ -27,10 +27,11 @@ public class DriveRobot {
     double leftdriveoutput;
     double rightdriveoutput;
     boolean motordriver4;
-    
-           /**
+
+     /** Constructor to set up Robot Drive System. if boolean equals true, then set up 4 motor drive
      *
      * @param moterdrive4 The number of motors on the drive system.
+     * True for 4 motor, false for 2 motor
      */
     public DriveRobot(boolean motordrive4){
         motordriver4 = motordrive4;
@@ -94,7 +95,6 @@ public class DriveRobot {
             driverobot(leftdriveoutput, rightdriveoutput);
     }
      
-
     public void drivetank(){
         leftdriveoutput = -joy.driver.getRawAxis(2);
         rightdriveoutput = -joy.driver2.getRawAxis(2);
@@ -124,6 +124,8 @@ public class DriveRobot {
         leftfrontvic.set(leftval);
         leftrearvic.set(leftval);
         }
+        spinleft();//Spin left if joy pressed
+        spinright();//Spin right if joy pressed
     }
 
 
