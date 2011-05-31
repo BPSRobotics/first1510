@@ -19,13 +19,13 @@ import edu.wpi.first.wpilibj.*;
  */
 public class Remus extends SimpleRobot {
     
-    
-    DriverStation ds = DriverStation.getInstance();
+
     Inputs in = new Inputs();
     Joysticks joy = new Joysticks();
-    DriveRobot drive = new DriveRobot();
+    DriveRobot drive = new DriveRobot(false);
     Pneumatics pneu = new Pneumatics();
     Arm arm = new Arm();
+    int dashstate = 0;
     
     /**
      * This function is called once each time the robot enters autonomous mode.
@@ -44,6 +44,20 @@ public class Remus extends SimpleRobot {
             pneu.minibot();
             pneu.claw();
             arm.JoystickArm();
+            dashstate++;
+        if (dashstate == 1){
+            SmartDashboard.log(drive.leftdriveoutput, "Left Drive Output");
+            SmartDashboard.log(drive.rightdriveoutput, "Right Drive Output");
+        }
+        else if (dashstate == 3){
+            SmartDashboard.log(arm.armenc.get(), "Arm Encoder");
+        }
+        else if (dashstate == 5){
+            SmartDashboard.log("test sd", "Testing");
+        }
+        else if (dashstate > 5){
+            dashstate = 0;
+        }
         }
 
     }

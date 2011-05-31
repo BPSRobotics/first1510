@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.*;
  */
 public class Pneumatics {
     Inputs in = new Inputs();
-    DriveRobot drive = new DriveRobot();
     Joysticks joy = new Joysticks();
     
     Compressor comp = new Compressor(in.pressure,in.compressor);

@@ -10,8 +10,10 @@ public class Inputs {
     static final boolean JAGUARDRIVE = false; //set if drive is Jaguars or Victors 
     
     //PWM outputs
-    public int rightdrive = 3;
-    public int leftdrive = 4;
+    public int rightfrontdrive = 4;
+    public int leftfrontdrive = 3;
+    public int rightreardrive = 7;
+    public int leftreardrive = 8;
 
     public int arm = 8;
     
