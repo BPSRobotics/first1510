@@ -124,6 +124,8 @@ public class DriveRobot {
         leftfrontvic.set(leftval);
         leftrearvic.set(leftval);
         }
+        spinleft();//Spin left if joy pressed
+        spinright();//Spin right if joy pressed
     }
 
 
