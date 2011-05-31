@@ -1,10 +1,15 @@
-ToDo programming log for spike:
-As of revision r21
+ToDo programming log for romulous/remus:
+As of revision r22
 
-Test smartdashboard usage
-	See if it lags out robot
-	
-If mechanical installs encoders/gyro/traction wheels onto robot
-	Write straight drive code
-	Write distance code
-	Write a working auton to move robot forward and then spit balls
+Test entire robot system
+  Including drive
+  Including pneumatics
+  Including arm (work on this for sure
+  Use knowledge of spike in order to work out bugs in smartdashboard
+
+  
+Once everything else works
+  Write straight drive code using gyro
+  Write line sensor code
+  Write distance code
+  Write a working auton to match daniels labview code
