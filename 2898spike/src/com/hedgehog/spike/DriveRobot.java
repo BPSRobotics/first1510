@@ -14,7 +14,7 @@ public class DriveRobot {
     
     //Create things
     Inputs in = new Inputs();//create imputs
-    Joysticks joy = new Joysticks();
+    Joysticks joy = new Joysticks();//this imports the joysticks
     
     //Create Victors & Spikes
     Victor leftfrontvic;
