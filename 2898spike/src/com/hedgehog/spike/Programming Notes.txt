@@ -1,0 +1,10 @@
+ToDo programming log for spike:
+As of revision r21
+
+Test smartdashboard usage
+	See if it lags out robot
+	
+If mechanical installs encoders/gyro/traction wheels onto robot
+	Write straight drive code
+	Write distance code
+	Write a working auton to move robot forward and then spit balls
