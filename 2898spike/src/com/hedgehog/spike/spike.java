@@ -17,9 +17,12 @@ import edu.wpi.first.wpilibj.*;
  */
 public class spike extends SimpleRobot {
 
+    int dashstate = 0;
     DriveRobot drive = new DriveRobot(false);
     Beltsys belts = new Beltsys();
-    DriverStation ds = DriverStation.getInstance();
+    public spike(){
+        SmartDashboard.init();
+    }
 
     /**
      * This function is called once each time the robot enters autonomous mode.
@@ -37,6 +40,17 @@ public class spike extends SimpleRobot {
         belts.runballs();
         drive.spinleft();
         drive.spinright();
+        dashstate++;
+        if (dashstate == 1){
+            SmartDashboard.log(drive.leftdriveoutput, "Left Drive Output");
+            SmartDashboard.log(drive.rightdriveoutput, "Right Drive Output");
+        }
+        else if (dashstate == 3){
+            SmartDashboard.log(belts.topspinner.get(), "Top Spinner Speed");
+        }
+        else if (dashstate > 5){
+            dashstate = 0;
+        }
     }
     }
 }
