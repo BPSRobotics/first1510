@@ -28,4 +28,7 @@ public class Gyroscope {
     public double getGyro(){
         return gyro.getAngle();
     }
+    public void reset(){
+        gyro.reset();
+    }
 }

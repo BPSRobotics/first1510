@@ -41,6 +41,7 @@ public class Remus extends SimpleRobot {
     public void autonomous() {
         pneu.claw.set(DoubleSolenoid.Value.kForward);
         pneu.minibot();
+        gyro.reset();
         encoders.reset();
         double speed;
         while (ultra.getDistance() > 35) {
