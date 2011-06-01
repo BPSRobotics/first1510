@@ -4,6 +4,7 @@
  */
 package com.wildcats.remus.robot;
 
+import com.wildcats.remus.classes.*;
 import edu.wpi.first.wpilibj.*;
 
 /**
@@ -81,7 +82,5 @@ public class Arm {
                 SmartDashboard.log("Arm Error", "Arm State");
             }
         }
-
-
     }
 }
