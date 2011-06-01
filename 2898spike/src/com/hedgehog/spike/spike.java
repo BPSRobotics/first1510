@@ -17,11 +17,12 @@ import edu.wpi.first.wpilibj.*;
  */
 public class spike extends SimpleRobot {
 
-    int dashstate = 0;
-    DriveRobot drive = new DriveRobot(false);
-    Beltsys belts = new Beltsys();
-    public spike(){
-        SmartDashboard.init();
+    int dashstate = 0;//dashboard cycle state
+    DriveRobot drive = new DriveRobot(false);//create and initalize drive(2 motor drive)
+    Beltsys belts = new Beltsys();//create and initalize belt system
+
+    public spike() {
+        SmartDashboard.init();//initalize smart dashboard
     }
 
     /**
@@ -36,22 +37,22 @@ public class spike extends SimpleRobot {
     public void operatorControl() {
         while (isOperatorControl() && isEnabled()) // loop during enabled teleop mode
         {
-        drive.drivetanksquarecurve();
-        belts.runballs();
-        drive.spinleft();
-        drive.spinright();
-        dashstate++;
-        if (dashstate == 1){
-            SmartDashboard.log(drive.leftdriveoutput, "Left Drive Output");
-            SmartDashboard.log(drive.rightdriveoutput, "Right Drive Output");
+            drive.drivetanksquarecurve();//drive with square curve
+            belts.runballs();//run the ball system
+            dashstate++;//advance dash state
+            if (dashstate == 1) {//on dashstate 1
+                //log drive values
+                SmartDashboard.log(drive.leftdriveoutput, "Left Drive Output");
+                SmartDashboard.log(drive.rightdriveoutput, "Right Drive Output");
+            } else if (dashstate == 3) {//on dash state 3
+                //log top spinner speed
+                SmartDashboard.log(belts.topspinner.get(), "Top Spinner Speed");
+            } else if (dashstate == 5) {//on dash state 5
+                //log state of ball sensor
+                SmartDashboard.log(belts.ballcheck.get(), "Ball checker status");
+            } else if (dashstate > 6) {//greater then dash state 6
+                dashstate = 0;//reset dash state to 0
+            }
         }
-        else if (dashstate == 3){
-            SmartDashboard.log(belts.topspinner.get(), "Top Spinner Speed");
-        }
-        else if (dashstate > 5){
-            dashstate = 0;
-        }
-    }
     }
 }
-
