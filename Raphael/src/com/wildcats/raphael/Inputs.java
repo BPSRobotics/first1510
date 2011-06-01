@@ -9,12 +9,12 @@ public class Inputs {
 
     
     //PWM outputs
-    public int rightfrontdrive = 4;
-    public int leftfrontdrive = 3;
-    public int rightreardrive = 7;
-    public int leftreardrive = 8;
+    public int rightfrontdrive = 1;
+    public int leftfrontdrive = 2;
+    public int rightreardrive = 3;
+    public int leftreardrive = 4;
 
-    public int kicker = 8;
+    public int kicker = 5;
     
     //Joysticks
     public int leftjoy = 1;
