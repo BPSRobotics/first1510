@@ -4,6 +4,7 @@
  */
 package com.wildcats.thads.robot;
 
+import com.wildcats.thads.classes.Inputs;
 import edu.wpi.first.wpilibj.*;
 
 /**

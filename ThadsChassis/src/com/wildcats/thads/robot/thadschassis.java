@@ -7,7 +7,7 @@
 
 package com.wildcats.thads.robot;
 
-
+import com.wildcats.thads.classes.*;
 import edu.wpi.first.wpilibj.*;
 
 /**
@@ -21,7 +21,7 @@ public class thadschassis extends SimpleRobot {
     Inputs in = new Inputs();
     Joysticks joy = new Joysticks();
     Pneumatics pneu = new Pneumatics();
-    DriveRobot drive = new DriveRobot();
+    DriveRobot drive = new DriveRobot(false);
     DriverStation ds = DriverStation.getInstance();
     
 
@@ -39,9 +39,6 @@ public class thadschassis extends SimpleRobot {
 
         while(isOperatorControl() && isEnabled()){
             drive.drivetanksquarecurve();
-            drive.spinleft();
-            drive.spinright();
-
         }
 
     }
