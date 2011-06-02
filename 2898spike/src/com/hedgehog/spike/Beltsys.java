@@ -51,7 +51,7 @@ public class Beltsys {
         }
         pickupball();//run ball pickup
     }
-
+//testing
     public void pickupball() {
         if (!ballcheck.get()) //if ball input is triggered
         {
