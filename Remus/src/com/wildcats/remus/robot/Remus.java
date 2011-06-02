@@ -40,7 +40,6 @@ public class Remus extends SimpleRobot {
      */
     public void autonomous() {
         pneu.claw.set(DoubleSolenoid.Value.kForward);
-        //run functions
         pneu.minibot();
         gyro.reset();
         encoders.reset();
