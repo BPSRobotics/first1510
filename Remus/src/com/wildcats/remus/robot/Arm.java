@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.*;
  */
 public class Arm {
 
-    Inputs in = new Inputs();
-    Joysticks joy = new Joysticks();
+    Inputs in;
+    Joysticks joy;
     Victor armvic = new Victor(in.arm);
     Encoder armenc = new Encoder(in.armencA, in.armencB, in.revarm, Encoder.EncodingType.k4X);
     LimitSwitches limits = new LimitSwitches();

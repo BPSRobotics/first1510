@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.*;
  */
 public class LineSensor {
 
-    Inputs in = new Inputs();
+    Inputs in;
     DigitalInput leftsensor = new DigitalInput(in.leftline);
     DigitalInput midsensor = new DigitalInput(in.midline);
     DigitalInput rightsensor = new DigitalInput(in.rightline);

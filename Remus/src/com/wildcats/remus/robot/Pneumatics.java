@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.*;
  */
 public class Pneumatics {
 
-    Inputs in = new Inputs();
-    Joysticks joy = new Joysticks();
+    Inputs in;
+    Joysticks joy;
     Compressor comp = new Compressor(in.pressure, in.compressor);
     //Create Solenoid
     DoubleSolenoid minibot = new DoubleSolenoid(in.minibots1, in.minibots2);

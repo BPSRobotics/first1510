@@ -8,6 +8,11 @@ public class Inputs {
 
     static final boolean PRACTICE = false; //practice robot switch
     static final boolean JAGUARDRIVE = false; //set if drive is Jaguars or Victors 
+    static final boolean FOURMOTORDRIVE = false;//4 motor drive switch
+    
+    //motor inversions (correct settings for toughboxes/2 stage gearboxes. invert for CIMple's/1 stage
+    final int REVERSELEFTDRIVE = 1;//set if left drive is inverted
+    final int REVERSERIGHTDRIVE = -1;//set if right drive is inverted
     //PWM outputs
     public int rightfrontdrive = 4;
     public int leftfrontdrive = 3;

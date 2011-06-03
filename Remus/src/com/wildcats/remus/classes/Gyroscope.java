@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.*;
  * @author Thad
  */
 public class Gyroscope {
-    Inputs in = new Inputs();
+    Inputs in;
     Gyro gyro = new Gyro(in.gyro);
     
     

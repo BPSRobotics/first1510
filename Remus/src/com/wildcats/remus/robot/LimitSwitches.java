@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj.*;
  */
 public class LimitSwitches {
 
-    Inputs in = new Inputs();
+    Inputs in;
     AnalogChannel limits = new AnalogChannel(in.limits);
-    Arm arm = new Arm();
+    Arm arm;
     static double topmax = 1.4;
     static double topmin = 1;
     static double slammax = 1.8;

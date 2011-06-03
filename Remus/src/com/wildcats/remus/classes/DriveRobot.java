@@ -14,41 +14,53 @@ import edu.wpi.first.wpilibj.*;
 public class DriveRobot {
 
     //Create things
-    Inputs in = new Inputs();//create imputs
-    Joysticks joy = new Joysticks();//this imports the joysticks
+    Inputs in;
+    Joysticks joy;
+    Gyroscope gyro;
     //Create Victors & Spikes
-    Victor leftfrontvic;
-    Victor rightfrontvic;
-    Victor leftrearvic;
-    Victor rightrearvic;
+    SpeedController leftfrontdrive;
+    SpeedController rightfrontdrive;
+    SpeedController leftreardrive;
+    SpeedController rightreardrive;
+    //create value systems
     public double leftdriveinput;
     public double rightdriveinput;
     public double leftdriveoutput;
     public double rightdriveoutput;
-    boolean motordriver4;
+    //create constructer inputs
+    boolean fourmotordrive = Inputs.FOURMOTORDRIVE;
+    boolean jaguardrive = Inputs.JAGUARDRIVE;
 
-    /** Constructor to set up Robot Drive System. if boolean equals true, then set up 4 motor drive
-     *
-     * @param moterdrive4 The number of motors on the drive system.
-     * True for 4 motor, false for 2 motor
-     */
-    public DriveRobot(boolean motordrive4) {
-        motordriver4 = motordrive4;
-        if (motordrive4) {
-            leftfrontvic = new Victor(in.leftfrontdrive);
-            rightfrontvic = new Victor(in.rightfrontdrive);
-            leftrearvic = new Victor(in.leftreardrive);
-            rightrearvic = new Victor(in.rightreardrive);
-        } else {
-            leftfrontvic = new Victor(in.leftfrontdrive);
-            rightfrontvic = new Victor(in.rightfrontdrive);
-            leftrearvic = null;
-            rightrearvic = null;
+
+    public DriveRobot() {
+        if (fourmotordrive && (jaguardrive == false)) {//if 4 motor drive and victor drive
+            leftfrontdrive = new Victor(in.leftfrontdrive);
+            rightfrontdrive = new Victor(in.rightfrontdrive);
+            leftreardrive = new Victor(in.leftreardrive);
+            rightreardrive = new Victor(in.rightreardrive);
+
+        } else if (fourmotordrive && jaguardrive) {//if 4 motor drive and jaguar drive
+            leftfrontdrive = new Jaguar(in.leftfrontdrive);
+            rightfrontdrive = new Jaguar(in.rightfrontdrive);
+            leftreardrive = new Jaguar(in.leftreardrive);
+            rightreardrive = new Jaguar(in.rightreardrive);
+        } else if (!fourmotordrive && !jaguardrive) {//if 2 motor drive and victor drive
+            leftfrontdrive = new Victor(in.leftfrontdrive);
+            rightfrontdrive = new Victor(in.rightfrontdrive);
+            leftreardrive = null;
+            rightreardrive = null;
+        } else {//if 2 motor drive and jaguar drive
+            leftfrontdrive = new Jaguar(in.leftfrontdrive);
+            rightfrontdrive = new Jaguar(in.rightfrontdrive);
+            leftreardrive = null;
+            rightreardrive = null;
         }
 
     }
 
-    public void drivetanksqrtcurve() {
+
+
+    public void drivetanksqrtcurve() {//Tank drive with a square rooted curve
         leftdriveinput = -joy.driver.getY();
         if (leftdriveinput >= 0.0) {
             leftdriveoutput = (leftdriveinput * Math.sqrt(leftdriveinput));
@@ -64,7 +76,7 @@ public class DriveRobot {
         driverobot(leftdriveoutput, rightdriveoutput);
     }
 
-    public void drivetanksquarecurve() {
+    public void drivetanksquarecurve() {//tank drive with a squared curve
         leftdriveinput = -(joy.driver.getY());
         if (leftdriveinput >= 0.0) {
             leftdriveoutput = (leftdriveinput * leftdriveinput);
@@ -80,25 +92,25 @@ public class DriveRobot {
         driverobot(leftdriveoutput, rightdriveoutput);
     }
 
-    public void drivetank() {
+    public void drivetank() {//tank drive with no curve
         leftdriveoutput = -joy.driver.getRawAxis(2);
         rightdriveoutput = -joy.driver2.getRawAxis(2);
         driverobot(leftdriveoutput, rightdriveoutput);
     }
 
-    public void spinleft() {
+    public void spinleft() {//spin the robot left at 40%
         while (joy.driver.getRawButton(in.spinleft)) {
             driverobot(-.4, .4);
         }
     }
 
-    public void spinright() {
+    public void spinright() {//spin the robot right at 40%
         while (joy.driver.getRawButton(in.spinright)) {
             driverobot(.4, -.4);
         }
     }
 
-    public void drive(double outputMagnitude, double curve) {
+    public void drive(double outputMagnitude, double curve) {//imput speed and curve and set motors
         double leftOutput, rightOutput;
 
         if (curve < 0) {
@@ -125,14 +137,46 @@ public class DriveRobot {
     }
 
     public void driverobot(double leftval, double rightval) {
-        if (!motordriver4) {
-            rightfrontvic.set(-rightval);
-            leftfrontvic.set(leftval);
+        if (!fourmotordrive) {
+            rightfrontdrive.set(rightval * in.REVERSERIGHTDRIVE);
+            leftfrontdrive.set(leftval * in.REVERSELEFTDRIVE);
         } else {
-            rightfrontvic.set(-rightval);
-            rightrearvic.set(-rightval);
-            leftfrontvic.set(leftval);
-            leftrearvic.set(leftval);
+            rightfrontdrive.set(rightval * in.REVERSERIGHTDRIVE);
+            rightreardrive.set(rightval * in.REVERSERIGHTDRIVE);
+            leftfrontdrive.set(leftval * in.REVERSELEFTDRIVE);
+            leftreardrive.set(leftval * in.REVERSELEFTDRIVE);
+        }
+        spinleft();//Spin left if joy pressed
+        spinright();//Spin right if joy pressed
+    }
+    public void driverobotgyro(double leftval, double rightval){
+        double rightdrive;
+        double leftdrive;
+        if (gyro.getGyro() > 360 || gyro.getGyro() < -360){
+            gyro.reset();
+        }
+        if (leftval > 0 && rightval <0 || leftval < 0 && rightval > 0){
+            leftdrive = leftval;
+            rightdrive = rightval;
+        }
+        else{
+            if (gyro.getGyro() > 90 || gyro.getGyro() < -90){
+                leftdrive = leftval;
+                rightdrive = rightval;
+            }
+            else{
+                leftdrive = -leftval;
+                rightdrive = -rightval;
+            }
+        }
+        if (!fourmotordrive) {
+            rightfrontdrive.set(rightdrive * in.REVERSERIGHTDRIVE);
+            leftfrontdrive.set(leftdrive * in.REVERSELEFTDRIVE);
+        } else {
+            rightfrontdrive.set(rightdrive * in.REVERSERIGHTDRIVE);
+            rightreardrive.set(rightdrive * in.REVERSERIGHTDRIVE);
+            leftfrontdrive.set(leftdrive * in.REVERSELEFTDRIVE);
+            leftreardrive.set(leftdrive * in.REVERSELEFTDRIVE);
         }
         spinleft();//Spin left if joy pressed
         spinright();//Spin right if joy pressed

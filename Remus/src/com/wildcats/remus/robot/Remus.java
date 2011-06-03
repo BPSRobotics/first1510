@@ -23,8 +23,7 @@ public class Remus extends SimpleRobot {
     int dashstate = 0;//this is the counter for the number of cycles robot has had
     Inputs in = new Inputs(); //create and initalize inputs
     Joysticks joy = new Joysticks();//create and initalize joysticks
-    DriveRobot drive = new DriveRobot(false);//create and initalize drive
-    //conditions are false for 2 motor drive or true for 4 motor drive
+    DriveRobot drive = new DriveRobot();//create and initalize drive
     Pneumatics pneu = new Pneumatics();//create and initalize pneumatics system
     Arm arm = new Arm();//create and initalize arm.
     DriveEncoder encoders = new DriveEncoder();

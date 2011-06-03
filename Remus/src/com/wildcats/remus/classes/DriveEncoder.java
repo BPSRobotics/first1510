@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.CounterBase.*;
  * @author Thad
  */
 public class DriveEncoder {
-    Inputs in = new Inputs();
+    Inputs in;
     Encoder leftenc = new Encoder(in.leftencA,in.leftencB,in.revleft,EncodingType.k4X);
     Encoder rightenc = new Encoder(in.rightencA,in.rightencB,in.revright,EncodingType.k4X);
     
