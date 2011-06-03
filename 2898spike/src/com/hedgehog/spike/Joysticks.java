@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.*;
  */
 public class Joysticks {
 
-    Inputs in = new Inputs();
+    Inputs in;
     Joystick driver = new Joystick(in.leftjoy);
     Joystick driver2 = new Joystick(in.rightjoy);
     Joystick secondary = new Joystick(in.operaterjoy);

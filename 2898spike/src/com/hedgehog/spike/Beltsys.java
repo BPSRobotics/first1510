@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.*;
  *
  * @author Thad
  */
-public class Beltsys {
+public class Beltsys{
 
-    Inputs in = new Inputs();//create and initalize inputs
+    Inputs in;//create and initalize inputs
     Joysticks joy = new Joysticks();//create and initalize joysticks
     double DEFAULTBELTSPEED = -1.0;//set the default conveyer belt speed
     Victor conveyerbelt;//create conveyer belt victor

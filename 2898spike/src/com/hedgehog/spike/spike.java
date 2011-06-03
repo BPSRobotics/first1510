@@ -17,9 +17,11 @@ import edu.wpi.first.wpilibj.*;
  */
 public class spike extends SimpleRobot {
 
+    Inputs in = new Inputs();
     int dashstate = 0;//dashboard cycle state
-    DriveRobot drive = new DriveRobot(false);//create and initalize drive(2 motor drive)
+    DriveRobot drive = new DriveRobot();//create and initalize drive(2 motor drive)
     Beltsys belts = new Beltsys();//create and initalize belt system
+    Joysticks joy = new Joysticks();
 
     public spike() {
         SmartDashboard.init();//initalize smart dashboard
