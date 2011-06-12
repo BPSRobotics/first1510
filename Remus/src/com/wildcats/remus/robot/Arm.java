@@ -13,11 +13,14 @@ import edu.wpi.first.wpilibj.*;
  */
 public class Arm {
 
+    final int toppeg = 69;
+    final int midpeg = 48;
     Inputs in;
     Joysticks joy;
     Victor armvic = new Victor(in.arm);
     Encoder armenc = new Encoder(in.armencA, in.armencB, in.revarm, Encoder.EncodingType.k4X);
     LimitSwitches limits = new LimitSwitches();
+    int encoderset;
     int armcase = 1;
     boolean slam = false;
     boolean stopped = false;
@@ -37,8 +40,16 @@ public class Arm {
     public void RunArm(int dashstate) {
         if (joy.secondary.getRawButton(4)) {
             armcase = 2;
+            encoderset = toppeg;
         } else if (joy.secondary.getRawButton(5)) {
-            armcase = 3;
+            armcase = 2;
+            encoderset = toppeg + 2;
+        } else if (joy.secondary.getRawButton(8)) {
+            armcase = 2;
+            encoderset = midpeg;
+        } else if (joy.secondary.getRawButton(9)) {
+            armcase = 2;
+            encoderset = midpeg + 2;
         } else {
             armcase = 1;
         }
@@ -53,12 +64,19 @@ public class Arm {
             } else {
                 if (joy.secondary.getY() < -.3) {
                     setArm(-.3);
-                } else if (armenc.get() > 60) {
-                    setArm((joy.secondary.getY()) * (joy.secondary.getY()));
                 } else {
                     setArm(joy.secondary.getY());
 
                 }
+
+            }
+        } else if (armcase == 2) {
+            if (armenc.getDistance() > (encoderset + 1)) {
+                setArm(0);
+            } else if (armenc.getDistance() > (encoderset - 1)) {
+                setArm(((0.3) * (armenc.getDistance() / encoderset)) + .3);
+            } else if ((encoderset - 1) < armenc.getDistance() && ((encoderset + 1) > armenc.getDistance())) {
+                setArm(.195);
             }
         }
 
@@ -82,21 +100,22 @@ public class Arm {
     }
 
     public void setArm(double speed) {
-        if (slam){
-            armvic.set(-.3);
-        if (stopped) {
+        if (slam) {
+            armvic.set(-.4);
+        } else if (stopped) {
             armvic.set(0.0);
         } else {
 
             armvic.set(speed);
         }
-        }
+
     }
 
     public void armStop(boolean stop) {
         stopped = stop;
     }
-    public void slamArm(boolean slamit){
+
+    public void slamArm(boolean slamit) {
         slam = slamit;
     }
 }
