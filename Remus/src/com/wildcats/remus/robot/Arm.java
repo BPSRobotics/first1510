@@ -38,6 +38,9 @@ public class Arm {
     }
 
     public void RunArm(int dashstate) {
+        if (joy.secondary.getRawButton(12) && joy.driver.getRawButton(12)) {
+            limits.errorswitch();
+        }
         if (joy.secondary.getRawButton(4)) {
             armcase = 2;
             encoderset = toppeg;
@@ -77,13 +80,25 @@ public class Arm {
             if (timestate == 2) {
                 SmartDashboard.log("Top Upper Peg", "Arm State");
             }
-        } else if (armcase == 3) {
-            if (timestate == 2) {
-                SmartDashboard.log("Top Lower Peg", "Arm State");
-            }
         } else {
-            if (timestate == 4) {
-                SmartDashboard.log("Arm Error", "Arm State");
+            if (limits.limitstate == 0) {
+                SmartDashboard.log("No limit switches hit", "Limits State");
+            }
+            else if (limits.limitstate == 1){
+                SmartDashboard.log("Top limit switch hit", "Limits State");
+            }
+            else if (limits.limitstate == 2){
+                SmartDashboard.log("slam limit switch hit", "Limits State");
+            }
+            else if (limits.limitstate == 3){
+                SmartDashboard.log("limits error not override", "Limits State");
+            }
+            else if (limits.limitstate == 4){
+                SmartDashboard.log("limits error overrided", "Limits State");
+
+            }
+            else if (limits.limitstate == 5){
+                SmartDashboard.log("limits thread disabled", "Limits State");
             }
         }
     }
