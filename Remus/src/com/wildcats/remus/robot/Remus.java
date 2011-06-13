@@ -43,6 +43,7 @@ public class Remus extends SimpleRobot {
         gyro.reset();
         encoders.reset();
         double speed;
+        arm.RunArm(10);//move arm to top peg (10 means use auton mode for arm)
         while (ultra.getDistance() > 35) {
             if (encoders.getAverage() < 100) {
                 speed = .7;
@@ -61,6 +62,7 @@ public class Remus extends SimpleRobot {
         drive.driverobot(0, 0);
         Timer.delay(0.5);
         pneu.claw.set(DoubleSolenoid.Value.kReverse);
+        arm.setArm(0.0);
     }
 
     /**

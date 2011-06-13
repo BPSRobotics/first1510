@@ -50,38 +50,27 @@ public class Arm {
         } else if (joy.secondary.getRawButton(9)) {
             armcase = 2;
             encoderset = midpeg + 2;
+        } else if (dashstate == 10) {
+            armcase = 2;
+            encoderset = toppeg;
         } else {
             armcase = 1;
         }
-        JoystickArm(dashstate);
+        if (armcase == 1) {
+            JoystickArm();
+            SetDash(dashstate);
+        } else if (armcase == 2) {
+            AutoArm();
+            if (dashstate > 9) {
+            } else {
+                SetDash(dashstate);
+            }
+
+        }
 
     }
 
-    public void JoystickArm(int timestate) {
-        if (armcase == 1) {
-            if (joy.secondary.getRawButton(in.stall)) {
-                setArm(.195);
-            } else {
-                if (joy.secondary.getY() < -.3) {
-                    setArm(-.3);
-                } else {
-                    setArm(joy.secondary.getY());
-
-                }
-
-            }
-        } else if (armcase == 2) {
-            if (armenc.getDistance() > (encoderset + 1)) {
-                setArm(0);
-            } else if (armenc.getDistance() > (encoderset - 1)) {
-                setArm(((0.3) * (armenc.getDistance() / encoderset)) + .3);
-            } else if ((encoderset - 1) < armenc.getDistance() && ((encoderset + 1) > armenc.getDistance())) {
-                setArm(.195);
-            }
-        }
-
-
-
+    public void SetDash(int timestate) {
         if (timestate == 4) {
             SmartDashboard.log("Joystick Arm", "Arm State");
         } else if (armcase == 2) {
@@ -97,6 +86,32 @@ public class Arm {
                 SmartDashboard.log("Arm Error", "Arm State");
             }
         }
+    }
+
+    public void AutoArm() {
+        if (armenc.getDistance() > (encoderset + 1)) {
+            setArm(0);
+        } else if (armenc.getDistance() > (encoderset - 1)) {
+            setArm(((0.3) * (armenc.getDistance() / encoderset)) + .3);
+        } else if ((encoderset - 1) < armenc.getDistance() && ((encoderset + 1) > armenc.getDistance())) {
+            setArm(.195);
+        }
+    }
+
+    public void JoystickArm() {
+
+        if (joy.secondary.getRawButton(in.stall)) {
+            setArm(.195);
+        } else {
+            if (joy.secondary.getY() < -.3) {
+                setArm(-.3);
+            } else {
+                setArm(joy.secondary.getY());
+
+            }
+        }
+
+
     }
 
     public void setArm(double speed) {
