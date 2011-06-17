@@ -38,14 +38,16 @@ public class Remus extends SimpleRobot {
      * This function is called once each time the robot enters autonomous mode.
      */
     public void autonomous() {
-        pneu.claw.set(DoubleSolenoid.Value.kForward);
-        pneu.minibot();
-        gyro.reset();
-        encoders.reset();
+        pneu.closeclaw();//close the claw
+        pneu.minibotin();//push minibot deployment in
+        gyro.reset();//reset gyro
+        encoders.reset();//reset encoders
         double speed;
-        arm.RunArm(10);//move arm to top peg (10 means use auton mode for arm)
-        while (ultra.getDistance() > 35) {
-            if (encoders.getAverage() < 100) {
+        /*
+        //move robot code with ultrasonic and gyro
+        while (ultra.getDistance() > 35 && isEnabled() && isAutonomous()) {//while ultrasonic is greater then 35 inches out and is in auton mode.
+            arm.RunArm(10);//move arm to top peg (10 means use auton mode for arm)
+            if (encoders.getAverage() < 100) {//use different speeds depending on encoder counts.
                 speed = .7;
             } else if (encoders.getAverage() < 150) {
                 speed = .5;
@@ -59,10 +61,31 @@ public class Remus extends SimpleRobot {
             Timer.delay(.004);//delay and correct every .004 seconds
             
         }
-        drive.driverobot(0, 0);
+         * 
+         */
+        //move robot code with encoders and gyro
+        while (encoders.getAverage() < 216 && isEnabled() && isAutonomous()) {//while encoders are less then 216 inches out and is in auton mode.
+            arm.RunArm(10);//move arm to top peg (10 means use auton mode for arm)
+            if (encoders.getAverage() < 100) {//use different speeds depending on encoder counts.
+                speed = .7;
+            } else if (encoders.getAverage() < 150) {
+                speed = .5;
+            } else if (encoders.getAverage() < 200) {
+                speed = .45;
+            } else {
+                speed = .35;
+            }
+            double angle = gyro.getGyro();//input gyro angle
+            drive.drive(speed, -angle * in.Kp); //drive robot at set speed using gyro to correct angle
+            Timer.delay(.004);//delay and correct every .004 seconds
+            
+        }
+        //once at 35 inches stop robot
+        arm.setArm(0.0);//set arm to 0
+        drive.driverobot(0, 0);//stop the robot
         Timer.delay(0.5);
-        pneu.claw.set(DoubleSolenoid.Value.kReverse);
-        arm.setArm(0.0);
+        pneu.openclaw();//open claw
+        
     }
 
     /**
@@ -73,13 +96,13 @@ public class Remus extends SimpleRobot {
             drive.drivetanksquarecurve();//Drive tank with Squared Curve
             pneu.minibot();//Run the minibot pneumatics function
             pneu.claw();//Run the claw pneumatics function
-            arm.RunArm(dashstate);//run the arm function (send the cycle counter)
             dashstate++;//Increment cycle counter
+            arm.RunArm(dashstate);//run the arm function (send the cycle counter)
             if (dashstate == 1) {//if on cycle 1
                 SmartDashboard.log(drive.leftdriveoutput, "Left Drive Output");//output left drive outputs
                 SmartDashboard.log(drive.rightdriveoutput, "Right Drive Output");//output right drive outputs.
             } else if (dashstate == 3) {//else if on cycle 3
-                SmartDashboard.log(arm.armenc.get(), "Arm Encoder");//output arm encoder value
+                SmartDashboard.log(arm.armenc.getDistance(), "Arm Encoder");//output arm encoder value
             } else if (dashstate == 5) {//else if on cycle 5
                 SmartDashboard.log("test sd", "Testing");//output another variable
             } else if (dashstate > 5) {//if greater then cycle 5

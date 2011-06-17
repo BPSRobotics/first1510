@@ -84,9 +84,8 @@ public class Inputs {
 
             DriveCPR = 250;
 
-            revleft = false;
+            revleft = true;
             revright = false;
-            revarm = false;
         } else {
             //practice
             leftencA = 2;
@@ -98,7 +97,7 @@ public class Inputs {
             DriveCPR = 250;
 
             revleft = true;
-            revright = true;
+            revright = false;
         }
 
     }

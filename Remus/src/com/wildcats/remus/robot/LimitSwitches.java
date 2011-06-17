@@ -92,15 +92,15 @@ public class LimitSwitches {
         m_enabled = false;
     }
 
-    public boolean enabled() {
+    public boolean enabled() {//check if thread is enabled
         return m_enabled;
     }
 
-    public void errorswitch() {
-        if (errortoggle) {
-            errortoggle = false;
-        } else {
-            errortoggle = true;
+    public void errorswitch() {//switch between limit switch errors.
+        if (errortoggle) {//if toggle is on.
+            errortoggle = false;//turn toggle off.
+        } else {//if toggle is off.
+            errortoggle = true;//turn toggle on.
         }
     }
 }

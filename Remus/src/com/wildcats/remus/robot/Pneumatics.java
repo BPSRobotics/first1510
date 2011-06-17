@@ -26,20 +26,32 @@ public class Pneumatics {
         claw.set(DoubleSolenoid.Value.kReverse);
     }
 
+    public void closeclaw(){
+        claw.set(DoubleSolenoid.Value.kReverse);
+    }
+    public void openclaw(){
+        claw.set(DoubleSolenoid.Value.kForward);
+    }
+    public void minibotout(){
+        minibot.set(DoubleSolenoid.Value.kReverse);
+    }
+    public void minibotin(){
+        minibot.set(DoubleSolenoid.Value.kForward);
+    }
     public void minibot() {
         if (joy.secondary.getRawButton(in.minibotjoy1) && joy.secondary.getRawButton(in.minibotjoy2)) {
-            minibot.set(DoubleSolenoid.Value.kReverse);
+            minibotout();
         } else {
-            minibot.set(DoubleSolenoid.Value.kForward);
+            minibotin();
         }
     }
 
     public void claw() {
         if (joy.secondary.getRawButton(in.clawtrigger1)) {
-            claw.set(DoubleSolenoid.Value.kForward);
+            closeclaw();
         }
         if (joy.secondary.getRawButton(in.clawtrigger2)) {
-            claw.set(DoubleSolenoid.Value.kReverse);
+            openclaw();
         }
 
     }

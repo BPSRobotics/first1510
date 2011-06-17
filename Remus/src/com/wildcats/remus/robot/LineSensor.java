@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.wildcats.remus.classes;
+package com.wildcats.remus.robot;
 
+import com.wildcats.remus.classes.*;
 import edu.wpi.first.wpilibj.*;
 
 /**
